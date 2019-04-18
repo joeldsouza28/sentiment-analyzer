@@ -13,10 +13,10 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-app.get('/input', (req, res) => __awaiter(this, void 0, void 0, function* () {
+app.get('/input', (req, res) => {
     res.setHeader('content-type', 'text/html');
     res.sendFile(__dirname + '/html/input.html');
-}));
+});
 app.get('/getResult',(req,res,next)=>{
     console.log(req.query.text)
     var dataString=""
@@ -33,5 +33,5 @@ app.get('/getResult',(req,res,next)=>{
 })
 var port = process.env.PORT || 8000;
 app.listen(port,()=>{
-    console.log("Server Active At 8000");  
+    console.log("Server Active At "+port);  
 })
