@@ -28,6 +28,7 @@ app.get('/getResult',(req,res,next)=>{
       })
       child.stdin.end();
 })
-app.listen(9000,()=>{
+var port = process.env.PORT || 8000;
+app.listen(port,()=>{
     console.log("Server Active At 8000");  
 })
