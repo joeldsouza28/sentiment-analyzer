@@ -3,6 +3,7 @@ var admin=require('firebase-admin')
 var url = require('url');
 var path = require('path');
 var sql = require('mysql');
+import {PythonShell} from 'python-shell';
 var exec = require("child_process").exec;
 var bodyParser = require('body-parser')
 const app=express()
@@ -20,16 +21,31 @@ app.get('/input', (req, res) => {
 app.post('/getResult',(req,res,next)=>{
     console.log(req.query.text)
     var dataString=""
-    var child=exec(`python scripty.py ${req.query.text}`)
-    child.stdout.on('data', function(data){
-        console.log(data)
-        dataString += data.toString();
-      });
-      child.stdout.on('end', function(){
-        console.log('result=',dataString);
-        res.send(dataString)
-      })
-      child.stdin.end();
+   
+    try{
+        let option={
+            mode: 'text',
+            scriptPath: './',
+            args: [req.query.text]
+        }
+        PythonShell.run(`scripty.py`,option,function(err,result){
+            if (err) throw err;
+            console.log(result)
+            res.send(result)
+        })
+    }catch(e){
+        console.log(e)
+    }
+    
+    // child.stdout.on('data', function(data){
+    //     console.log(data)
+    //     dataString += data.toString();
+    //   });
+    //   child.stdout.on('end', function(){
+    //     console.log('result=',dataString);
+    //     res.send(dataString)
+    //   })
+    //   child.stdin.end();
 })
 var port = process.env.PORT || 8000;
 app.listen(port,()=>{
