@@ -58,8 +58,8 @@ document.getElementById("btnSubmit").addEventListener("click",function(event){
         var params=new URLSearchParams()
         params.append("text",document.getElementById("textarea1").value)
         axios({
-            method:'get',
-            url:`http://localhost:9000/getResult`,
+            method:'post',
+            url:`http://localhost:8000/getResult`,
             params:params
         }).then(function(response){
             if(response.data[0]==1){
