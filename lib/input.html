@@ -59,7 +59,7 @@ document.getElementById("btnSubmit").addEventListener("click",function(event){
         params.append("text",document.getElementById("textarea1").value)
         axios({
             method:'get',
-            url:`http://localhost:9000/getResult`,
+            url:`https://sentiment-analysis-marathi.herokuapp.com/getResult`,
             params:params
         }).then(function(response){
             console.log(response)
