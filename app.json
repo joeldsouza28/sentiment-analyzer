@@ -1,6 +1,6 @@
 {
-    "name":"News-Reader-App",
-    "description":"News-Reader-App website",
-    "repository":"https://github.com/joel-reujoe/News-Reader-App.git",
+    "name":"Sentiment-Analysis-Marathi",
+    "description":"website",
+    "repository":"https://github.com/joel-reujoe/Sentiment-Analysis-Marathi.git",
     "keyword":["express","node","dynamic"]
 }
