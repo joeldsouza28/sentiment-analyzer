@@ -25,7 +25,7 @@ app.post('/getResult',(req,res,next)=>{
     try{
         let option={
             mode: 'text',
-            scriptPath: './',
+            scriptPath: '/app/lib/',
             args: [req.query.text]
         }
         PythonShell.run(`scripty.py`,option,function(err,result){
