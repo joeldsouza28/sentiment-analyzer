@@ -1,6 +1,0 @@
-numpy
-googletrans
-nltk.collections
-nltk.corpus
-nltk.tokenize
-sklearn
