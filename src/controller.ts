@@ -20,7 +20,7 @@ app.get('/input', (req, res) => {
 app.post('/getResult',(req,res,next)=>{
     console.log(req.body.text)
     var dataString=""
-    var child=exec(`python scripty.py ${req.query.text}`)
+    var child=exec(`python scripty.py ${req.body.text}`)
     child.stdout.on('data', function(data){
         console.log(data)
         dataString += data.toString();
