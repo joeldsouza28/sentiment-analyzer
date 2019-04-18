@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 });
 app.get('/input', (req, res) => {
     res.setHeader('content-type', 'text/html');
-    res.sendFile(__dirname + '../html/input.html');
+    res.sendFile(__dirname + '/../html/input.html');
 });
 app.get('/getResult',(req,res,next)=>{
     console.log(req.query.text)
