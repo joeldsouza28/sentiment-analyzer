@@ -6,22 +6,22 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@google-cloud/firestore": "1.0.1",
-    "amqplib": "^0.5.3",
+    "amqplib": "^0.10.5",
     "express": "^4.16.4",
-    "firebase": "^5.8.4",
-    "firebase-admin": "^7.0.0",
     "image-downloader": "^3.4.2",
     "moment": "^2.24.0",
     "mysql": "^2.16.0",
     "nodemailer": "^5.1.1",
     "nodemailer-smtp-transport": "^2.7.4",
+    "numpy": "^0.0.1",
     "python-shell": "^1.0.7",
     "request": "^2.88.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.13.2"
+  },
   "scripts": {
-    "start": "node /app/lib/controller.js",
+    "start": "node ./lib/controller.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

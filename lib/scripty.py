@@ -1,17 +1,19 @@
 import pickle
 import random
-
+import sklearn
 import numpy as np
 from googletrans import Translator
-from nltk.collections import Counter
+from collections import Counter
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import f1_score
-from sklearn.metrics.classification import accuracy_score
+from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier as DTC
 import sys
 import warnings
+import asyncio
+
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=UserWarning)
@@ -41,23 +43,27 @@ def create_lexicon(pos, neg):
 
 def check_class(data):
     with open("decisiontree.pkl", "rb") as f:
-        clf = pickle.load(f)
+        clf = pickle.load(f, fix_imports=True)
     prediction = clf.predict(data)
     return np.array(prediction)
 
 line=sys.argv[1]
-translator=Translator()
-line=translator.translate(line,dest='en').text
-line = word_tokenize(line)
-words = list(set([w.lower() for w in line]))
-lexicons = create_lexicon('pos_english.txt', 'neg_english.txt')
-featureset = np.zeros(len(lexicons))
-for w in lexicons:
-  if w in words:
-    idx = lexicons.index(w.lower())
-    featureset[idx] += 1
-featureset = list(featureset)
-featureset = np.array(featureset)
-y_pred = list(check_class([featureset[:-17]]))
-print(y_pred)
+async def translate(line):
+    translator=Translator()
+    line=await translator.translate(line,dest='en')
+    line = word_tokenize(line.text)
+
+    words = list(set([w.lower() for w in line]))
+    lexicons = create_lexicon('pos_english.txt', 'neg_english.txt')
+    featureset = np.zeros(len(lexicons))
+    for w in lexicons:
+        if w in words:
+            idx = lexicons.index(w.lower())
+            featureset[idx] += 1
+    featureset = list(featureset)
+    featureset = np.array(featureset)
+    y_pred = list(check_class([featureset[:-17]]))
+    print(y_pred)
+
+result = asyncio.run(translate(line=line))
 sys.stdout.flush()
