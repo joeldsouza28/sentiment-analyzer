@@ -59,13 +59,13 @@ document.getElementById("btnSubmit").addEventListener("click",function(event){
         params.append("text",document.getElementById("textarea1").value)
         axios({
             method:'get',
-            url:`http://localhost:8000/getResult`,
+            url:`/getResult`,
             params:params
         }).then(function(response){
-            if(response.data[0]==1){
-                document.getElementById("result").innerHTML="negative"
+            if(response.status == 200){
+                document.getElementById("result").innerHTML=response.data["result"]
             }else{
-                document.getElementById("result").innerHTML="positive"                
+                document.getElementById("result").innerHTML="Something went wrong"                
             }
         }).catch(function(error){
             console.log(error)
